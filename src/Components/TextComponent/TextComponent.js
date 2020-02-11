@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ProcessButton from '../Buttons/ProccessButton';
 
 const TextComponent = () => {
   const [csv, setCsv] = useState('');
@@ -9,8 +10,7 @@ const TextComponent = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(csv)
-
+      console.log(csv)
   }
 
   return (
@@ -24,8 +24,8 @@ const TextComponent = () => {
             <textarea onChange={handleChange} name="csv" className="form-control" aria-label="With textarea"></textarea>
           </div>
           <br/>
-
           <button onClick={handleSubmit} type="button" className="btn btn-primary">Process</button>
+          <ProcessButton/>
         </form>
       </div>
     </div>
