@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import ProcessButton from '../Buttons/ProccessButton';
+import Papa from 'papaparse';
+
 
 const TextComponent = () => {
   const [csv, setCsv] = useState('');
+  const [process, setProcess] = useState([]);
 
   const handleChange = e => {
     setCsv(e.target.value)
@@ -10,7 +12,8 @@ const TextComponent = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-      console.log(csv)
+    const change = Papa.parse(csv,{header:true})
+    console.log(change.data)
   }
 
   return (
@@ -25,7 +28,6 @@ const TextComponent = () => {
           </div>
           <br/>
           <button onClick={handleSubmit} type="button" className="btn btn-primary">Process</button>
-          <ProcessButton/>
         </form>
       </div>
     </div>
