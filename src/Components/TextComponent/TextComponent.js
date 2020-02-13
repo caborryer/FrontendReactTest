@@ -15,25 +15,13 @@ const TextComponent = () => {
       return h.trim();
     }
   }
-  const createOptions = () => {
-    const options = []
-    if (process.length > 0) {
-      console.log(process)
-      const iterator = process.data[0].keys()
-      for (let key of iterator) {
-        options.push(key)
-      }
-    }
-    return options
-  }
 
   const handleSubmit = e => {
     e.preventDefault();
-   
-    const change = Papa.parse(csv, config)
-    setProcess(change)
-  }
 
+    const change = Papa.parse(csv, config)
+    setProcess(change.data)
+  }
 
 
   return (
@@ -50,11 +38,13 @@ const TextComponent = () => {
         <br/>
         <br/>
         <select>
-          {console.log(process)}
-          {createOptions().map((info) => <OptionComponent
-            optionText={info} key={info} name={info.data.amount}/>)}
+          {process.map((info, i) => <OptionComponent
+            date = {info.date} spent={info.spent} key={i} amount={info.amount}/>)}
         </select>
-
+        <select>
+          {process.map((info, i) => <OptionComponent
+            date = {info.date} spent={info.spent} key={i} amount={info.amount}/>)}
+        </select>
       </div>
     </div>
   );
