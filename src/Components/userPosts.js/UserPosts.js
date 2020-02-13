@@ -1,39 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import TablePost from './TablePost';
+import FlashMessage from "../Errors/FlashMessage";
 
 const UserPosts = () => {
-  const [post, setPost] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState({});
 
   async function getData() {
     try {
       const response = await fetch('https://jsonplaceholder.typicode.com/posts');
       const data = await response.json()
+      //setPosts(data)
       console.log(data)
-      return data
 
+      setError({})
 
     } catch (error) {
-      console.log(error)
+      setError(error)
     }
   }
 
   useEffect(() => {
     getData()
-  }, [post])
+  }, [posts])
+
+  let FMessage = <FlashMessage type="error" message= {error.message} />
 
   return (
     <div className="container">
+      {error.message ? (FMessage) : ''}
       <table className="table table-hover">
         <thead>
-        <tr className="table-light">
-          <th scope="col">Type</th>
-          <th scope="col">Column heading</th>
-          <th scope="col">Column heading</th>
-          <th scope="col">Column heading</th>
-        </tr>
+        {posts.map(post=>(
+          <tr className="table-light">
+            <th scope="col">User id :{post.userId}</th>
+            <th scope="col">Column heading</th>
+            <th scope="col">Column heading</th>
+            <th scope="col">Column heading</th>
+          </tr>
+        ))}
         </thead>
         <tbody>
-        <TablePost/>
+        <tr className="table-primary">
+          <th scope="row">Active</th>
+          <td>Column content</td>
+          <td>Column content</td>
+          <td>Column content</td>
+        </tr>
         </tbody>
       </table>
     </div>
