@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Papa from 'papaparse';
-import DropDownComponent from '../DropDownComponent/DropDownComponent';
-
+import OptionComponent from '../DropDownComponent/DropDownComponent';
 
 const TextComponent = () => {
   const [csv, setCsv] = useState('');
@@ -16,12 +15,26 @@ const TextComponent = () => {
       return h.trim();
     }
   }
+  const createOptions = () => {
+    const options = []
+    if (process.length > 0) {
+      console.log(process)
+      const iterator = process.data[0].keys()
+      for (let key of iterator) {
+        options.push(key)
+      }
+    }
+    return options
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
+   
     const change = Papa.parse(csv, config)
-    setProcess(change.data)
+    setProcess(change)
   }
+
+
 
   return (
     <div className="container">
@@ -37,12 +50,9 @@ const TextComponent = () => {
         <br/>
         <br/>
         <select>
-          {process.map((info, i) => <DropDownComponent
-                                              date={info.date} amount={info.amount} spent={info.spent} key={i}/>)}
-        </select>
-        <select>
-          {process.map((info, i) => <DropDownComponent
-            date={info.date} amount={info.amount} spent={info.spent} key={i}/>)}
+          {console.log(process)}
+          {createOptions().map((info) => <OptionComponent
+            optionText={info} key={info} name={info.data.amount}/>)}
         </select>
 
       </div>

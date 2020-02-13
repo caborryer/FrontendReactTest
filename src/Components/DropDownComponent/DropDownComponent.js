@@ -1,13 +1,12 @@
 import React from 'react';
 
-const DropDownComponent = ({date, amount, spent}) => {
+const OptionComponent = ({ optionText, name}) => {
   return (
     <>
-        <option>{date}</option>
-        <option>{amount}</option>
-        <option>{spent}</option>
+        <option>{optionText}</option>
+      <option>{name}</option>
     </>
   );
 };
 
-export default DropDownComponent;
+export default OptionComponent;
