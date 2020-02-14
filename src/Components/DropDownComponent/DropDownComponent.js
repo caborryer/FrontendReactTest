@@ -1,12 +1,12 @@
 import React from 'react';
 
-const OptionComponent = ({ amount, spent, date }) => {
+const OptionComponent = ({ header}) => {
   return (
     <>
-      <option>Y AXIS</option>
-      <option>{date}</option>
-      <option>{spent}</option>
-      <option>{amount}</option>
+
+      <select>
+      {headers.map((header)=><option>{header}</option> )}*/}
+      </select>
     </>
   );
 };

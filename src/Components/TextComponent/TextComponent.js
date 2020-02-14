@@ -1,52 +1,63 @@
 import React, { useState } from 'react';
 import Papa from 'papaparse';
-import OptionComponent from '../DropDownComponent/DropDownComponent';
+import TextAreaComponent from "../TextAreaComponent/TextAreaComponent";
+
 
 const TextComponent = () => {
+
   const [csv, setCsv] = useState('');
-  const [process, setProcess] = useState([]);
+  const [headers, saveHeaders] = useState([], { Labelx: 'X AXIS', labely: 'Y AXIS' })
 
   const handleChange = e => {
     setCsv(e.target.value)
   }
 
   const config = {
-    delimiter: ",", header: true, dynamicTyping: true, transformHeader: function (h) {
+    delimiter: ",",
+    header: true,
+    dynamicTyping: true,
+    transformHeader: function (h) {
       return h.trim();
     }
   }
 
-  const handleSubmit = e => {
-    e.preventDefault();
-
+  function csvParser() {
     const change = Papa.parse(csv, config)
-    setProcess(change.data)
+    const dataObject = (change.data[1])
+    const headers = Object.keys(dataObject)
+    console.log(change.data)
+    saveHeaders(headers)
+
+    return change
+  }
+
+  const handleClick = e => {
+    e.preventDefault();
+    csvParser()
   }
 
 
   return (
-    <div className="container">
-      <h1>Paste your cvs dates</h1>
-      <div className="principalContend contend">
-        <div className="input-group">
-          <div className="input-group-prepend">
-          </div>
-          <textarea onChange={handleChange} name="csv" className="form-control" aria-label="With textarea"></textarea>
+    <>
+      <div className="container">
+        <h1>Paste your cvs dates</h1>
+        <div className="principalContend contend">
+          <TextAreaComponent onChange={handleChange}/>
         </div>
         <br/>
-        <button onClick={handleSubmit} type="button" className="btn btn-primary">Process</button>
+        <button onClick={handleClick} type="button" className="btn btn-primary">Process</button>
         <br/>
         <br/>
         <select>
-          {process.map((info, i) => <OptionComponent
-            date = {info.date} spent={info.spent} key={i} amount={info.amount}/>)}
+          {headers.map((header) => <option>{header}</option>)}
         </select>
         <select>
-          {process.map((info, i) => <OptionComponent
-            date = {info.date} spent={info.spent} key={i} amount={info.amount}/>)}
+          {headers.map((header) => <option>{header}</option>)}
         </select>
+
       </div>
-    </div>
+    </>
+
   );
 };
 

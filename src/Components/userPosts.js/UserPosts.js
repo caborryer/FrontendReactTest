@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import TablePost from './TablePost';
 import FlashMessage from "../Errors/FlashMessage";
 
 const UserPosts = () => {
@@ -22,7 +21,7 @@ const UserPosts = () => {
 
   useEffect(() => {
     getData()
-  }, [posts])
+  }, [posts, setPosts])
 
   let FMessage = <FlashMessage type="error" message= {error.message} />
 
