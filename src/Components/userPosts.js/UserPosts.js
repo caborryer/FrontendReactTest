@@ -8,9 +8,9 @@ const UserPosts = () => {
   async function getData() {
     try {
       const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-      const data = await response.json()
+      const data = await response.json();
       //setPosts(data)
-      console.log(data)
+      console.log(data);
 
       setError({})
 
@@ -21,9 +21,9 @@ const UserPosts = () => {
 
   useEffect(() => {
     getData()
-  }, [posts, setPosts])
+  }, [posts, setPosts]);
 
-  let FMessage = <FlashMessage type="error" message= {error.message} />
+  let FMessage = <FlashMessage type="error" message= {error.message} />;
 
   return (
     <div className="container">

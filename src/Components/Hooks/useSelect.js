@@ -16,6 +16,6 @@ const useSelect = (initialState, options) => {
   );
 
   return [state, AxisSelect];
-}
+};
 
 export default useSelect;

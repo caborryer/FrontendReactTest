@@ -6,11 +6,12 @@ import TextAreaComponent from "../TextAreaComponent/TextAreaComponent";
 const TextComponent = () => {
 
   const [csv, setCsv] = useState('');
-  const [headers, saveHeaders] = useState([], { Labelx: 'X AXIS', labely: 'Y AXIS' })
+  const [headers, saveHeaders] = useState([]);
+  const [selectedHeaders, saveSelectedHeaders] = useState({labelX: '', labelY: ''});
 
   const handleChange = e => {
     setCsv(e.target.value)
-  }
+  };
 
   const config = {
     delimiter: ",",
@@ -19,14 +20,15 @@ const TextComponent = () => {
     transformHeader: function (h) {
       return h.trim();
     }
-  }
+  };
 
   function csvParser() {
-    const change = Papa.parse(csv, config)
-    const dataObject = (change.data[1])
-    const headers = Object.keys(dataObject)
-    console.log(change.data)
-    saveHeaders(headers)
+    const change = Papa.parse(csv, config);
+    const dataObject = (change.data[1]);
+    const headers = Object.keys(dataObject);
+    const showAxis = ({labelX: selectedHeaders, labelY: selectedHeaders});
+    saveSelectedHeaders(showAxis)
+    saveHeaders(headers);
 
     return change
   }
@@ -34,8 +36,7 @@ const TextComponent = () => {
   const handleClick = e => {
     e.preventDefault();
     csvParser()
-  }
-
+  };
 
   return (
     <>
@@ -54,7 +55,6 @@ const TextComponent = () => {
         <select>
           {headers.map((header) => <option>{header}</option>)}
         </select>
-
       </div>
     </>
 
@@ -62,4 +62,3 @@ const TextComponent = () => {
 };
 
 export default TextComponent;
-
